@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#EEF1E9" />
+    <meta
+      name="description"
+      content="InvestWise AI — a Hinglish investing copilot and a monthly autopsy of every trade you made. Built for Indian college students investing ₹500–5000 a month."
+    />
+    <title>InvestWise AI — your trades, marked honestly</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;500;600;700&family=Hind:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Applied before first paint so the page never flashes the wrong theme.
+      (function () {
+        try {
+          var saved = localStorage.getItem('investwise-theme');
+          if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          /* localStorage blocked — stay on paper */
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-BtZxXbvF.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/react-aaY_jsL7.js">
+    <link rel="modulepreload" crossorigin href="/assets/motion-BYFEnnAZ.js">
+    <link rel="modulepreload" crossorigin href="/assets/charts-C8kJdW2_.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-BEnCN99N.css">
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-sm focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+    >
+      Skip to main content
+    </a>
+    <div id="root"></div>
+  </body>
+</html>

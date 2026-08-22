@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   InvestWise AI — "Bahi Khata" design tokens
+
+   The interface is a ledger book. Light mode is ruled accounting paper; dark
+   mode is the same book photographed at night — ink on slate. Every colour is
+   named for the pen that would have made the mark.
+   ========================================================================= */
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    --iw-paper: 238 241 233;   /* #EEF1E9 — greenbar accounting paper */
+    --iw-sheet: 250 251 246;   /* a fresh sheet laid on the page       */
+    --iw-stripe: 223 230 214;  /* the printed green bar                */
+    --iw-rule: 205 212 196;    /* ruled lines, hairlines               */
+    --iw-ink: 22 32 27;        /* #16201B — the pen                    */
+    --iw-ink-2: 85 99 91;      /* secondary hand                       */
+    --iw-ink-3: 138 149 141;   /* faint, pencil                        */
+    --iw-loss: 196 50 28;      /* #C4321C — red pen: losses, remarks   */
+    --iw-gain: 46 107 74;      /* #2E6B4A — ledger green: profit       */
+    --iw-copilot: 44 62 140;   /* #2C3E8C — blue pen: the AI's hand    */
+    --iw-mark: 201 138 21;     /* #C98A15 — turmeric: points, grades   */
+  }
+
+  html.dark {
+    color-scheme: dark;
+
+    --iw-paper: 18 23 26;      /* #12171A */
+    --iw-sheet: 27 34 38;
+    --iw-stripe: 33 42 46;
+    --iw-rule: 51 63 68;
+    --iw-ink: 232 235 228;
+    --iw-ink-2: 160 172 166;
+    --iw-ink-3: 116 129 124;
+    --iw-loss: 240 101 74;
+    --iw-gain: 79 192 138;
+    --iw-copilot: 143 166 255;
+    --iw-mark: 233 184 74;
+  }
+
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+    font-feature-settings: 'kern' 1;
+  }
+
+  /* Headings carry the document's authority. */
+  h1, h2, h3 {
+    @apply font-display;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-loss ring-offset-2 ring-offset-paper;
+  }
+
+  ::selection {
+    @apply bg-mark/30;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* --- The sheet: a document, squared off, resting on the page ----------- */
+  .sheet {
+    @apply rounded-sm border border-rule bg-sheet shadow-sheet;
+  }
+
+  /* --- The margin rule: the red vertical line every Indian school notebook
+         has, and the place where remarks belong. ------------------------- */
+  .margin-rule {
+    @apply relative pl-5 sm:pl-7;
+  }
+  .margin-rule::before {
+    content: '';
+    @apply absolute bottom-0 left-2 top-0 w-px bg-loss/45 sm:left-3;
+  }
+
+  /* --- Eyebrow / column head: typed, spaced, quiet ---------------------- */
+  .eyebrow {
+    @apply font-mono text-stat font-medium uppercase text-ink-3;
+  }
+
+  /* --- Money and any figure that must not jitter ------------------------ */
+  .figure {
+    @apply font-mono tabular-nums;
+  }
+
+  /* --- Greenbar: alternating printed bars on a ledger table ------------- */
+  .greenbar > tbody > tr:nth-child(even) {
+    @apply bg-stripe/45;
+  }
+
+  .field {
+    @apply w-full rounded-sm border border-rule bg-paper px-3 py-2.5 text-ink
+      placeholder:text-ink-3 transition-colors
+      focus:border-ink focus:outline-none focus:ring-1 focus:ring-ink
+      disabled:cursor-not-allowed disabled:opacity-55;
+  }
+
+  .field-label {
+    @apply mb-1.5 block font-mono text-stat uppercase text-ink-2;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-sm px-2 py-0.5 font-mono text-stat uppercase;
+  }
+
+  .skel {
+    @apply relative overflow-hidden rounded-sm bg-rule/60;
+  }
+  .skel::after {
+    @apply absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r
+      from-transparent via-sheet/70 to-transparent content-[''];
+  }
+
+  .scroll-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--iw-rule)) transparent;
+  }
+  .scroll-thin::-webkit-scrollbar { width: 7px; height: 7px; }
+  .scroll-thin::-webkit-scrollbar-thumb { @apply rounded-full bg-rule; }
+  .scroll-thin::-webkit-scrollbar-track { background: transparent; }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  /* Faint ruled paper, used behind the hero and the report header. */
+  .ruled {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 27px,
+      rgb(var(--iw-rule) / 0.55) 27px,
+      rgb(var(--iw-rule) / 0.55) 28px
+    );
+  }
+}
